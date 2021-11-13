@@ -23,14 +23,14 @@
     <ul class="list-group tasks">
       <template v-for="tarea in tareas">
         <li class="list-group-item" :class="{editing: tarea.editando, completed: !tarea.pendiente}">
-          <a href="#"><span class="glyphicon" :class="tarea.pendiente ? 'glyphicon-unchecked' : 'glyphicon-check'"
+          <a @click="estadoTarea(tarea)" href="#"><span class="glyphicon" :class="tarea.pendiente ? 'glyphicon-unchecked' : 'glyphicon-check'"
             aria-hidden="true"></span></a>
 
           <template v-if="!tarea.editando">
             <span class="description">{{ tarea.descripcion }}</span>
 
             <div>
-              <a href="#">
+              <a @click="editarTarea(tarea)" href="#">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
               </a>
               <a href="#">
@@ -39,47 +39,19 @@
             </div>
           </template>
           <template v-else>
-            <input type="text" v-model="tarea.descripcion">
+            <input type="text" v-model="borrador">
 
             <div>
-              <a href="#">
+              <a @click="actualizarTarea(tarea)" href="#">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </a>
-              <a href="#">
+              <a @click="descartarTarea(tarea)" href="#">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               </a>
             </div>
           </template>
         </li>
       </template>
-      <!-- <li class="list-group-item editing">
-        <a href="#"><span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span></a>
-
-        <input type="text" value="Suscribirse en Styde">
-
-        <div>
-          <a href="#">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-          </a>
-          <a href="#">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </a>
-        </div>
-      </li>
-      <li class="list-group-item completed">
-        <a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-
-        <span class="description">Crear una API</span>
-
-        <div>
-          <a href="#">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-          </a>
-          <a href="#">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-          </a>
-        </div>
-      </li> -->
     </ul>
 
     <form @submit.prevent="agregarTarea" class="new-task-form">

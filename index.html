@@ -22,31 +22,34 @@
 
     <ul class="list-group tasks">
       <template v-for="(tarea, index) in tareas">
-        <li class="list-group-item" :class="{editing: tarea.editando, completed: !tarea.pendiente}">
-          <a @click="estatusTarea(tarea)" href="#"><span class="glyphicon" :class="tarea.pendiente ? 'glyphicon-unchecked' : 'glyphicon-check'"
-            aria-hidden="true"></span></a>
+        <li class="list-group-item" 
+            :class="{editing: tarea.editando, completed: !tarea.pendiente}">
+          <a @click="estatusTarea(tarea)">
+            <app-icon :img="tarea.pendiente ? 'unchecked' : 'check'" aria-hidden="true"></app-icon>
+          </a>
 
           <template v-if="!tarea.editando">
             <span class="description">{{ tarea.descripcion }}</span>
 
             <div>
-              <a @click="editarTarea(tarea)" href="#">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              <a @click="editarTarea(tarea)">
+                <app-icon img="edit"></app-icon>
               </a>
-              <a @click="eliminarTarea(index)" href="#">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              <a @click="eliminarTarea(index)">
+                <app-icon img="trash"></app-icon>
               </a>
             </div>
           </template>
+          
           <template v-else>
             <input type="text" v-model="borrador">
 
             <div>
-              <a @click="actualizarTarea(tarea)" href="#">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <a @click="actualizarTarea(tarea)">
+                <app-icon img="ok"></app-icon>
               </a>
-              <a @click="descartarTarea(tarea)" href="#">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <a @click="descartarTarea(tarea)">
+                <app-icon img="remove"></app-icon>
               </a>
             </div>
           </template>
@@ -62,7 +65,7 @@
     </form>
 
     <footer class="footer">
-      <p>&copy; 2017 Styde.net.</p>
+      <p>&copy; 2021 DevAntonio.com</p>
     </footer>
   </div>
 

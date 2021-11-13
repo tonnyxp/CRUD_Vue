@@ -31,7 +31,7 @@ var vm = new Vue({
       this.tarea = '';
     },
 
-    estadoTarea: function(tarea) {
+    estatusTarea: function(tarea) {
       tarea.pendiente = !tarea.pendiente;
     },
 
@@ -51,6 +51,16 @@ var vm = new Vue({
 
     descartarTarea: function(tarea) {
       tarea.editando = false;
+    },
+
+    eliminarTarea: function(index) {
+      this.tareas.splice(index, 1);
+    },
+
+    eliminarCompletadas: function() {
+      this.tareas = this.tareas.filter(function(tarea) {
+        return tarea.pendiente;
+      });
     }
   },
 });

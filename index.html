@@ -21,9 +21,9 @@
     <h2>Tareas</h2>
 
     <ul class="list-group tasks">
-      <template v-for="tarea in tareas">
+      <template v-for="(tarea, index) in tareas">
         <li class="list-group-item" :class="{editing: tarea.editando, completed: !tarea.pendiente}">
-          <a @click="estadoTarea(tarea)" href="#"><span class="glyphicon" :class="tarea.pendiente ? 'glyphicon-unchecked' : 'glyphicon-check'"
+          <a @click="estatusTarea(tarea)" href="#"><span class="glyphicon" :class="tarea.pendiente ? 'glyphicon-unchecked' : 'glyphicon-check'"
             aria-hidden="true"></span></a>
 
           <template v-if="!tarea.editando">
@@ -33,7 +33,7 @@
               <a @click="editarTarea(tarea)" href="#">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
               </a>
-              <a href="#">
+              <a @click="eliminarTarea(index)" href="#">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               </a>
             </div>
@@ -53,6 +53,8 @@
         </li>
       </template>
     </ul>
+
+    <p><a @click="eliminarCompletadas">Eliminar tareas completadas</a></p>
 
     <form @submit.prevent="agregarTarea" class="new-task-form">
       <input v-model="tarea" type="text" class="form-control">

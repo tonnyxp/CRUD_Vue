@@ -82,8 +82,8 @@
       </li> -->
     </ul>
 
-    <form class="new-task-form">
-      <input type="text" class="form-control">
+    <form @submit.prevent="agregarTarea" class="new-task-form">
+      <input v-model="tarea" type="text" class="form-control">
       <button class="btn btn-primary">Crear tarea</button>
     </form>
 

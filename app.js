@@ -1,6 +1,18 @@
 var vm = new Vue({
   el: '#app',
+  methods: {
+    agregarTarea: function() {
+      this.tareas.push({
+        descripcion: this.tarea,
+        pendiente: true,
+        editando: false
+      });
+
+      this.tarea = '';
+    }
+  },
   data: {
+    tarea: '',
     tareas: [{
         descripcion: 'Aprender Vue.js',
         pendiente: true,

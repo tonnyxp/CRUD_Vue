@@ -1,3 +1,5 @@
+var EventBus = new Vue;
+
 Vue.component('app-icon', {
   template: '<span :class="cssClasses" aria-hidden="true"></span>',
   props: ['img'],
@@ -17,12 +19,21 @@ Vue.component('app-task', {
   },
   template: '#task-template',
   props: ['tarea', 'index'],
+  created: function () {
+    EventBus.$on('editando', function (index) {
+        if (this.index != index) {
+            this.descartar();
+        }
+    }.bind(this));
+  },
   methods: {
     estatus: function () {
       this.tarea.pendiente = !this.tarea.pendiente;
     },
 
     editar: function () {
+      EventBus.$emit('editando', this.index);
+
       this.borrador = this.tarea.descripcion;
       this.editando = true;
     },

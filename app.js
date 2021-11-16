@@ -16,7 +16,7 @@ Vue.component('app-task', {
     };
   },
   template: '#task-template',
-  props: ['tarea', 'index', 'tareas'],
+  props: ['tarea', 'index'],
   methods: {
     estatus: function () {
       this.tarea.pendiente = !this.tarea.pendiente;
@@ -37,7 +37,7 @@ Vue.component('app-task', {
     },
 
     eliminar: function () {
-      this.tareas.splice(this.index, 1);
+      this.$emit('eliminar', this.index);
     },
   }
 });
@@ -68,6 +68,10 @@ var vm = new Vue({
       });
 
       this.tarea = '';
+    },
+
+    eliminarTarea: function (index) {
+      this.tareas.splice(index, 1);
     },
 
     eliminarCompletadas: function () {

@@ -22,7 +22,7 @@
 
     <ul class="list-group tasks">
       <template v-for="(tarea, index) in tareas">
-        <li is="app-task" :tarea="tarea" :index="index" :tareas="tareas"></li>
+        <li is="app-task" :tarea="tarea" :index="index" @eliminar="eliminarTarea"></li>
       </template>
     </ul>
 

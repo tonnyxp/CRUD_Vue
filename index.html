@@ -9,7 +9,7 @@
   <meta name="author" content="https://styde.net">
   <link rel="icon" href="favicon.ico">
 
-  <title>Curso de Vue 2 - Styde.net</title>
+  <title>DevAntonio | Starter</title>
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -22,38 +22,7 @@
 
     <ul class="list-group tasks">
       <template v-for="(tarea, index) in tareas">
-        <li class="list-group-item" 
-            :class="{editing: tarea.editando, completed: !tarea.pendiente}">
-          <a @click="estatusTarea(tarea)">
-            <app-icon :img="tarea.pendiente ? 'unchecked' : 'check'" aria-hidden="true"></app-icon>
-          </a>
-
-          <template v-if="!tarea.editando">
-            <span class="description">{{ tarea.descripcion }}</span>
-
-            <div>
-              <a @click="editarTarea(tarea)">
-                <app-icon img="edit"></app-icon>
-              </a>
-              <a @click="eliminarTarea(index)">
-                <app-icon img="trash"></app-icon>
-              </a>
-            </div>
-          </template>
-          
-          <template v-else>
-            <input type="text" v-model="borrador">
-
-            <div>
-              <a @click="actualizarTarea(tarea)">
-                <app-icon img="ok"></app-icon>
-              </a>
-              <a @click="descartarTarea(tarea)">
-                <app-icon img="remove"></app-icon>
-              </a>
-            </div>
-          </template>
-        </li>
+        <li is="app-task" :tarea="tarea" :index="index" :tareas="tareas"></li>
       </template>
     </ul>
 
@@ -70,6 +39,40 @@
   </div>
 
   <script src="https://unpkg.com/vue@2.1.8/dist/vue.js"></script>
+  <script type="text/x-template" id="task-template">
+    <li class="list-group-item" 
+        :class="{editing: tarea.editando, completed: !tarea.pendiente}">
+      <a @click="estatus">
+        <app-icon :img="tarea.pendiente ? 'unchecked' : 'check'" aria-hidden="true"></app-icon>
+      </a>
+
+      <template v-if="!tarea.editando">
+        <span class="description">{{ tarea.descripcion }}</span>
+
+        <div>
+          <a @click="editar">
+            <app-icon img="edit"></app-icon>
+          </a>
+          <a @click="eliminar">
+            <app-icon img="trash"></app-icon>
+          </a>
+        </div>
+      </template>
+      
+      <template v-else>
+        <input type="text" v-model="borrador">
+
+        <div>
+          <a @click="actualizar">
+            <app-icon img="ok"></app-icon>
+          </a>
+          <a @click="descartar">
+            <app-icon img="remove"></app-icon>
+          </a>
+        </div>
+      </template>
+    </li>
+  </script>
   <script src="app.js"></script>
 </body>
 

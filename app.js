@@ -8,6 +8,38 @@ Vue.component('app-icon', {
   }
 });
 
+Vue.component('app-task', {
+  template: '#task-template',
+  props: ['tarea', 'index', 'tareas'],
+  methods: {
+    estatus: function() {
+      this.tarea.pendiente = !this.tarea.pendiente;
+    },
+
+    editar: function() {
+      this.tareas.forEach(function(tarea) {
+        tarea.editando = false;
+      });
+
+      this.borrador = this.tarea.descripcion;
+      this.tarea.editando = true;
+    },
+
+    actualizar: function() {
+      this.tarea.descripcion = this.borrador;
+      this.tarea.editando = false;
+    },
+
+    descartar: function() {
+      this.tarea.editando = false;
+    },
+
+    eliminar: function() {
+      this.tareas.splice(this.index, 1);
+    },
+  }
+});
+
 var vm = new Vue({
   el: '#app',
   data: {
@@ -39,32 +71,6 @@ var vm = new Vue({
       });
 
       this.tarea = '';
-    },
-
-    estatusTarea: function(tarea) {
-      tarea.pendiente = !tarea.pendiente;
-    },
-
-    editarTarea: function(tarea) {
-      this.tareas.forEach(function(tarea) {
-        tarea.editando = false;
-      });
-
-      this.borrador = tarea.descripcion;
-      tarea.editando = true;
-    },
-
-    actualizarTarea: function(tarea) {
-      tarea.descripcion = this.borrador;
-      tarea.editando = false;
-    },
-
-    descartarTarea: function(tarea) {
-      tarea.editando = false;
-    },
-
-    eliminarTarea: function(index) {
-      this.tareas.splice(index, 1);
     },
 
     eliminarCompletadas: function() {

@@ -9,32 +9,34 @@ Vue.component('app-icon', {
 });
 
 Vue.component('app-task', {
+  data: function () {
+    return {
+      editando: false,
+      borrador: '',
+    };
+  },
   template: '#task-template',
   props: ['tarea', 'index', 'tareas'],
   methods: {
-    estatus: function() {
+    estatus: function () {
       this.tarea.pendiente = !this.tarea.pendiente;
     },
 
-    editar: function() {
-      this.tareas.forEach(function(tarea) {
-        tarea.editando = false;
-      });
-
+    editar: function () {
       this.borrador = this.tarea.descripcion;
-      this.tarea.editando = true;
+      this.editando = true;
     },
 
-    actualizar: function() {
+    actualizar: function () {
       this.tarea.descripcion = this.borrador;
-      this.tarea.editando = false;
+      this.editando = false;
     },
 
-    descartar: function() {
-      this.tarea.editando = false;
+    descartar: function () {
+      this.editando = false;
     },
 
-    eliminar: function() {
+    eliminar: function () {
       this.tareas.splice(this.index, 1);
     },
   }
@@ -43,40 +45,35 @@ Vue.component('app-task', {
 var vm = new Vue({
   el: '#app',
   data: {
-    borrador: '',
     tarea: '',
     tareas: [{
         descripcion: 'Aprender Vue.js',
-        pendiente: true,
-        editando: false
+        pendiente: true
       },
       {
         descripcion: 'Crear una API',
-        pendiente: true,
-        editando: false
+        pendiente: true
       },
       {
         descripcion: 'Crear una aplicación',
-        pendiente: false,
-        editando: false
+        pendiente: false
       }
     ]
   },
   methods: {
-    agregarTarea: function() {
+    agregarTarea: function () {
       this.tareas.push({
         descripcion: this.tarea,
-        pendiente: true,
-        editando: false
+        pendiente: true
       });
 
       this.tarea = '';
     },
 
-    eliminarCompletadas: function() {
+    eliminarCompletadas: function () {
       this.tareas = this.tareas.filter(function(tarea) {
         return tarea.pendiente;
       });
-    }
+    },
   },
 });
